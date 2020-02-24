@@ -56,8 +56,8 @@ class ExtremeErsTelnet(ExtremeErsBase):
         self,
         pri_prompt_terminator=r"#\s*$",
         alt_prompt_terminator=r">\s*$",
-        username_pattern=r"(?:user:|username|login|user name)",
-        pwd_pattern=r"assword",
+        username_pattern=r"[Ee]nter\s*[Uu]sername",
+        pwd_pattern=r"[Ee]nter\s*[Pp]assword",
         delay_factor=1,
         max_loops=20,
     ):
@@ -73,6 +73,8 @@ class ExtremeErsTelnet(ExtremeErsBase):
 
         output = ""
         return_msg = ""
+        sent_user = False
+        sent_pass = False
         i = 1
         while i <= max_loops:
             try:
@@ -90,22 +92,18 @@ class ExtremeErsTelnet(ExtremeErsBase):
                     self.write_channel(b"c\n")
 
                 # Search for username pattern / send username
-                if re.search(username_pattern, output, flags=re.I):
+                if re.search(username_pattern, output, flags=re.I) and not sent_user:
+                    sent_user = True
+                    self.write_channel(b"\x09")
+                    time.sleep(0.1 * delay_factor)
                     self.write_channel(self.username + self.TELNET_RETURN)
                     time.sleep(1 * delay_factor)
-                    output = self.read_channel()
-                    return_msg += output
 
                 # Search for password pattern / send password
-                if re.search(pwd_pattern, output, flags=re.I):
+                if re.search(pwd_pattern, output, flags=re.I) and not sent_pass:
+                    sent_pass = True
                     self.write_channel(self.password + self.TELNET_RETURN)
                     time.sleep(0.5 * delay_factor)
-                    output = self.read_channel()
-                    return_msg += output
-                    if re.search(
-                        pri_prompt_terminator, output, flags=re.M
-                    ) or re.search(alt_prompt_terminator, output, flags=re.M):
-                        return return_msg
 
                 # Check if proper data received
                 if re.search(pri_prompt_terminator, output, flags=re.M) or re.search(
