@@ -1,4 +1,4 @@
-from netmiko.extreme.extreme_ers_ssh import ExtremeErsSSH
+from netmiko.extreme.extreme_ers_ssh import ExtremeErsSSH, ExtremeErsTelnet
 from netmiko.extreme.extreme_exos import ExtremeExosSSH
 from netmiko.extreme.extreme_exos import ExtremeExosTelnet
 from netmiko.extreme.extreme_netiron import ExtremeNetironSSH
@@ -10,6 +10,7 @@ from netmiko.extreme.extreme_wing_ssh import ExtremeWingSSH
 
 __all__ = [
     "ExtremeErsSSH",
+    "ExtremeErsTelnet",
     "ExtremeExosSSH",
     "ExtremeExosTelnet",
     "ExtremeNetironSSH",

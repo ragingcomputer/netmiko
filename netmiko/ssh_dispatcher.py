@@ -35,6 +35,7 @@ from netmiko.eltex import EltexSSH, EltexEsrSSH
 from netmiko.endace import EndaceSSH
 from netmiko.enterasys import EnterasysSSH
 from netmiko.extreme import ExtremeErsSSH
+from netmiko.extreme import ExtremeErsTelnet
 from netmiko.extreme import ExtremeExosSSH
 from netmiko.extreme import ExtremeExosTelnet
 from netmiko.extreme import ExtremeNetironSSH
@@ -89,6 +90,7 @@ CLASS_MAPPER_BASE = {
     "arista_eos": AristaSSH,
     "aruba_os": ArubaSSH,
     "avaya_ers": ExtremeErsSSH,
+    "avaya_ers_telnet": ExtremeErsTelnet,
     "avaya_vsp": ExtremeVspSSH,
     "brocade_fastiron": RuckusFastironSSH,
     "brocade_netiron": ExtremeNetironSSH,
@@ -121,6 +123,7 @@ CLASS_MAPPER_BASE = {
     "enterasys": EnterasysSSH,
     "extreme": ExtremeExosSSH,
     "extreme_ers": ExtremeErsSSH,
+    "extreme_ers_telnet": ExtremeErsTelnet,
     "extreme_exos": ExtremeExosSSH,
     "extreme_netiron": ExtremeNetironSSH,
     "extreme_nos": ExtremeNosSSH,
